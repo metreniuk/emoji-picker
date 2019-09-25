@@ -1,8 +1,9 @@
 import * as React from "react"
 import { render } from "react-dom"
-import EmojiPicker from "./EmojiPicker"
-
+import "./reset.css"
 import "./styles.css"
+
+import EmojiPicker from "./EmojiPicker"
 
 function App() {
   return (
