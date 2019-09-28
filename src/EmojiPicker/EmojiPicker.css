@@ -4,6 +4,7 @@
   position: relative;
   border-radius: 8px;
   overflow: hidden;
+  background-color: #ffffff;
 }
 
 .emoji-picker__search {
@@ -12,7 +13,6 @@
 
 .emoji-picker__content {
   padding: 0 16px;
-  background-color: #ffffff;
 }
 
 .emoji-picker__section {
