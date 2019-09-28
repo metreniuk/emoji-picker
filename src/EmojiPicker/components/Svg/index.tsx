@@ -176,7 +176,7 @@ const Transport = ({ className, isFilled }: IconProps) => (
   >
     {isFilled ? (
       <>
-        <g clip-path="url(#clip0)">
+        <g clipPath="url(#clip0)">
           <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -191,7 +191,7 @@ const Transport = ({ className, isFilled }: IconProps) => (
       </>
     ) : (
       <>
-        <g clip-path="url(#clip0)">
+        <g clipPath="url(#clip0)">
           <path
             fillRule="evenodd"
             clipRule="evenodd"
