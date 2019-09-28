@@ -18,7 +18,7 @@ const EmojiPicker = () => (
       <Section className="emoji-picker__section" title="Smileys & people" />
       {/* More sections */}
     </div>
-    <Footer />
+    <Footer className="emoji-picker__footer" />
   </div>
 )
 
