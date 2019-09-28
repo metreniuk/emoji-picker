@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, ChangeEvent } from "react"
 import classNames from "classnames"
 import "./Search.css"
 
@@ -9,12 +9,16 @@ const useInput = (initialState: string) => {
 
   return {
     value,
-    setValue: e => setValue(e.target.value),
+    setValue: (e: ChangeEvent<HTMLInputElement>) => setValue(e.target.value),
     reset: () => setValue(initialState)
   }
 }
 
-const Search = ({ className }) => {
+interface SearchProps {
+  className: string
+}
+
+const Search = ({ className }: SearchProps) => {
   const { value, setValue, reset } = useInput("")
 
   return (
