@@ -4,7 +4,7 @@ import "./Search.css"
 
 import * as Svg from "../Svg"
 
-const useInput = initialState => {
+const useInput = (initialState: string) => {
   const [value, setValue] = useState(initialState)
 
   return {
