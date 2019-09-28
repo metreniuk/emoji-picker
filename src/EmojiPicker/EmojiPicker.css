@@ -1,9 +1,9 @@
 .emoji-picker {
   font-family: "SF Pro Text";
   max-width: 360px;
-  border: 1px solid red;
-  border-radius: 8px;
   position: relative;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .emoji-picker__search {
@@ -12,6 +12,7 @@
 
 .emoji-picker__content {
   padding: 0 16px;
+  background-color: #ffffff;
 }
 
 .emoji-picker__section {
