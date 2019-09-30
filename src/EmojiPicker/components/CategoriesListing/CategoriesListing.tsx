@@ -4,78 +4,47 @@ import "./CategoriesListing.css";
 
 import Section from "./components/Section";
 
-type Category =
-  | "recent"
-  | "smile"
-  | "animal"
-  | "food"
-  | "sport"
-  | "transport"
-  | "object"
-  | "symbol";
-
 const CategoriesListing = () => {
-  const ref = useRef<any>(null);
-  let sectionsRefs = useRef<any>(null);
+  const [scrolledSections, setScrolledSections] = useState<[] | boolean[]>([]);
+  const ref = useRef<HTMLDivElement>(null);
+  const sectionsRefs = new Array(8)
+    .fill(undefined)
+    .map((_, i) => useRef<HTMLElement>(null));
 
   useEffect(() => {
-    sectionsRefs.current = [].slice.call(
-      document.getElementsByClassName("section")
-    );
-
     const handleScroll = () => {
-      const tops = sectionsRefs.current.map((x: any) => x.offsetTop);
+      const tops = sectionsRefs.map((x: any) => x.current.offsetTop);
 
-      tops.forEach((top: any, i: number) => {
-        if (ref.current.scrollTop >= top) {
-          sectionsRefs.current[i].classList.add("section--scrolled");
-        } else {
-          sectionsRefs.current[i].classList.remove("section--scrolled");
-        }
-      });
-      console.log(ref.current.scrollTop, tops);
+      const newScrolledSections = tops.map((top: number, i: number) =>
+        Boolean(ref.current && ref.current.scrollTop >= top)
+      );
+
+      setScrolledSections(newScrolledSections);
     };
 
-    ref.current.addEventListener("scroll", handleScroll);
+    if (ref.current) {
+      ref.current.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      if (ref.current) {
+        ref.current.removeEventListener("scroll", handleScroll);
+      }
+    };
   }, []);
 
   return (
     <div className="categories-listing" ref={ref}>
-      <Section
-        className="categories-listing__section"
-        title="Frequently used"
-        index={0}
-      />
-      <Section
-        className="categories-listing__section"
-        title="Smileys & people"
-        index={1}
-      />
-      <Section
-        className="categories-listing__section"
-        title="Smileys & people"
-        index={2}
-      />
-      <Section
-        className="categories-listing__section"
-        title="Smileys & people"
-        index={3}
-      />
-      <Section
-        className="categories-listing__section"
-        title="Smileys & people"
-        index={4}
-      />
-      <Section
-        className="categories-listing__section"
-        title="Smileys & people"
-        index={5}
-      />
-      <Section
-        className="categories-listing__section"
-        title="Smileys & people"
-        index={6}
-      />
+      {sectionsRefs.map((ref, i) => (
+        <Section
+          key={i}
+          className="categories-listing__section"
+          title="Frequently used"
+          ref={ref}
+          isScrolled={scrolledSections[i]}
+          index={i}
+        />
+      ))}
     </div>
   );
 };
