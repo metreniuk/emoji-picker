@@ -1,10 +1,10 @@
-import React from "react"
-import "./EmojiPicker.css"
+import React from "react";
+import "./EmojiPicker.css";
 
-import Header from "./components/Header"
-import Search from "./components/Search"
-import Section from "./components/Section"
-import Footer from "./components/Footer"
+import Header from "./components/Header";
+import Search from "./components/Search";
+import CategoriesListing from "./components/CategoriesListing";
+import Footer from "./components/Footer";
 
 // TODO add emojilib https://github.com/muan/emojilib
 // TODO split emoji by categories https://emojipedia.org
@@ -12,14 +12,12 @@ import Footer from "./components/Footer"
 const EmojiPicker = () => (
   <div className="emoji-picker">
     <Header />
-    <div className="emoji-picker__content">
-      <Search className="emoji-picker__search" />
-      <Section className="emoji-picker__section" title="Frequently used" />
-      <Section className="emoji-picker__section" title="Smileys & people" />
-      {/* More sections */}
+    <div className="emoji-picker__search-wrapper">
+      <Search />
     </div>
+    <CategoriesListing />
     <Footer className="emoji-picker__footer" />
   </div>
-)
+);
 
-export default EmojiPicker
+export default EmojiPicker;

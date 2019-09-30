@@ -1,0 +1,10 @@
+.categories-listing {
+  height: 376px;
+  overflow-y: auto;
+  padding: 0 16px;
+  position: relative;
+}
+
+.categories-listing__section {
+  /* padding-bottom: 16px; */
+}

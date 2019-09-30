@@ -7,16 +7,9 @@
   background-color: #ffffff;
 }
 
-.emoji-picker__search {
+.emoji-picker__search-wrapper {
   margin-bottom: 16px;
-}
-
-.emoji-picker__content {
   padding: 0 16px;
-}
-
-.emoji-picker__section {
-  margin-bottom: 16px;
 }
 
 .emoji-picker__footer {
