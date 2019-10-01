@@ -1,5 +1,5 @@
-import React, { ComponentType } from "react"
-import classNames from "classnames"
+import React, { ComponentType } from "react";
+import classNames from "classnames";
 
 const Search = ({ className }: IconProps) => (
   <svg
@@ -14,7 +14,7 @@ const Search = ({ className }: IconProps) => (
       d="M11 6.75C11 9.09721 9.09721 11 6.75 11C4.40279 11 2.5 9.09721 2.5 6.75C2.5 4.40279 4.40279 2.5 6.75 2.5C9.09721 2.5 11 4.40279 11 6.75ZM10.251 11.3117C9.28141 12.0569 8.06745 12.5 6.75 12.5C3.57436 12.5 1 9.92564 1 6.75C1 3.57436 3.57436 1 6.75 1C9.92564 1 12.5 3.57436 12.5 6.75C12.5 8.06745 12.0569 9.28141 11.3117 10.251L14.5303 13.4697C14.8232 13.7626 14.8232 14.2374 14.5303 14.5303C14.2374 14.8232 13.7626 14.8232 13.4697 14.5303L10.251 11.3117Z"
     />
   </svg>
-)
+);
 
 const Close = ({ className }: IconProps) => (
   <svg
@@ -30,7 +30,7 @@ const Close = ({ className }: IconProps) => (
       d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.93934L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.06066 8L13.0303 11.9697C13.3232 12.2626 13.3232 12.7374 13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.06066L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.93934 8L2.96967 4.03033C2.67678 3.73744 2.67678 3.26256 2.96967 2.96967Z"
     />
   </svg>
-)
+);
 
 const Recent = ({ className, isFilled }: IconProps) => (
   <svg
@@ -54,7 +54,7 @@ const Recent = ({ className, isFilled }: IconProps) => (
       />
     )}
   </svg>
-)
+);
 
 const Smile = ({ className, isFilled }: IconProps) => (
   <svg
@@ -78,7 +78,7 @@ const Smile = ({ className, isFilled }: IconProps) => (
       />
     )}
   </svg>
-)
+);
 
 const Animal = ({ className, isFilled }: IconProps) => (
   <svg
@@ -107,7 +107,7 @@ const Animal = ({ className, isFilled }: IconProps) => (
       </>
     )}
   </svg>
-)
+);
 
 const Food = ({ className, isFilled }: IconProps) => (
   <svg
@@ -140,7 +140,7 @@ const Food = ({ className, isFilled }: IconProps) => (
       />
     )}
   </svg>
-)
+);
 
 const Sport = ({ className, isFilled }: IconProps) => (
   <svg
@@ -164,7 +164,7 @@ const Sport = ({ className, isFilled }: IconProps) => (
       />
     )}
   </svg>
-)
+);
 
 const Transport = ({ className, isFilled }: IconProps) => (
   <svg
@@ -206,7 +206,7 @@ const Transport = ({ className, isFilled }: IconProps) => (
       </>
     )}
   </svg>
-)
+);
 
 const Objects = ({ className, isFilled }: IconProps) => (
   <svg
@@ -230,7 +230,7 @@ const Objects = ({ className, isFilled }: IconProps) => (
       />
     )}
   </svg>
-)
+);
 
 const Symbols = ({ className, isFilled }: IconProps) => (
   <svg
@@ -254,14 +254,14 @@ const Symbols = ({ className, isFilled }: IconProps) => (
       />
     )}
   </svg>
-)
+);
 
 interface IconProps {
-  className?: string
-  isFilled?: boolean
+  className?: string;
+  isFilled?: boolean;
 }
 
-export type IconType = ComponentType<IconProps>
+export type IconType = ComponentType<IconProps>;
 
 export {
   Search,
@@ -274,4 +274,4 @@ export {
   Transport,
   Objects,
   Symbols
-}
+};

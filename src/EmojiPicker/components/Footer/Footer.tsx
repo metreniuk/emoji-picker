@@ -1,9 +1,9 @@
-import React, { useState } from "react"
-import classNames from "classnames"
+import React, { useState } from "react";
+import classNames from "classnames";
 
-import "./Footer.css"
+import "./Footer.css";
 
-import * as Svg from "../Svg"
+import * as Svg from "../Svg";
 
 type Category =
   | "recent"
@@ -13,13 +13,13 @@ type Category =
   | "sport"
   | "transport"
   | "object"
-  | "symbol"
+  | "symbol";
 
 interface NavItemProps {
-  category: Category
-  icon: Svg.IconType
-  isActive: boolean
-  onClick(category: Category): any
+  category: Category;
+  icon: Svg.IconType;
+  isActive: boolean;
+  onClick(category: Category): any;
 }
 
 const NavItem = ({ icon: Icon, category, isActive, onClick }: NavItemProps) => (
@@ -31,15 +31,15 @@ const NavItem = ({ icon: Icon, category, isActive, onClick }: NavItemProps) => (
   >
     <Icon className="footer__nav-icon" isFilled={isActive} />
   </li>
-)
+);
 
 interface FooterProps {
-  className: string
-  categories: Array<{ id: Category; icon: Svg.IconType }>
+  className: string;
+  categories: { id: Category; icon: Svg.IconType }[];
 }
 
 const Footer = ({ className, categories }: FooterProps) => {
-  const [activeCategory, setActiveCategory] = useState("recent")
+  const [activeCategory, setActiveCategory] = useState("recent");
 
   return (
     <footer className={classNames("footer", className)}>
@@ -57,8 +57,8 @@ const Footer = ({ className, categories }: FooterProps) => {
         </ul>
       </nav>
     </footer>
-  )
-}
+  );
+};
 
 Footer.defaultProps = {
   categories: [
@@ -95,6 +95,6 @@ Footer.defaultProps = {
       icon: Svg.Symbols
     }
   ]
-}
+};
 
-export default Footer
+export default Footer;

@@ -1,1 +1,1 @@
-export { default } from "./EmojiPicker"
+export { default } from "./EmojiPicker";

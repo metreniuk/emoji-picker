@@ -2,14 +2,16 @@ import React, { useEffect, useRef, useState } from "react";
 
 import "./CategoriesListing.css";
 
+import emojiList from "../../../emoji-list";
 import Section from "./components/Section";
 
-const CategoriesListing = () => {
+const CategoriesListing = ({ emoji = emojiList }) => {
   const [scrolledSections, setScrolledSections] = useState<[] | boolean[]>([]);
   const ref = useRef<HTMLDivElement>(null);
-  const sectionsRefs = new Array(8)
-    .fill(undefined)
-    .map((_, i) => useRef<HTMLElement>(null));
+
+  const categories = Object.entries(emoji);
+
+  const sectionsRefs = categories.map(() => useRef<HTMLElement>(null));
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,14 +37,15 @@ const CategoriesListing = () => {
 
   return (
     <div className="categories-listing" ref={ref}>
-      {sectionsRefs.map((ref, i) => (
+      {categories.map(([id, items], i) => (
         <Section
-          key={i}
+          key={id}
           className="categories-listing__section"
-          title="Frequently used"
-          ref={ref}
+          title={id}
+          ref={sectionsRefs[i]}
           isScrolled={scrolledSections[i]}
           index={i}
+          items={items}
         />
       ))}
     </div>
@@ -50,7 +53,7 @@ const CategoriesListing = () => {
 };
 
 CategoriesListing.defaultProps = {
-  categories: [],
+  categories: []
 };
 
 export default CategoriesListing;
