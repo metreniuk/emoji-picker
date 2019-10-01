@@ -5,6 +5,16 @@ import "./CategoriesListing.css";
 import emojiList from "../../../emoji-list";
 import Section from "./components/Section";
 
+const titlesMap = {
+  people: "Smileys & People",
+  animals_and_nature: "Animals & Nature",
+  food_and_drink: "Food & Drink",
+  activity: "Activity",
+  travel_and_places: "Travel & Places",
+  objects: "Objects",
+  flags: "Flags",
+};
+
 const CategoriesListing = ({ emoji = emojiList }) => {
   const [scrolledSections, setScrolledSections] = useState<[] | boolean[]>([]);
   const ref = useRef<HTMLDivElement>(null);
@@ -41,7 +51,7 @@ const CategoriesListing = ({ emoji = emojiList }) => {
         <Section
           key={id}
           className="categories-listing__section"
-          title={id}
+          title={titlesMap[id]}
           ref={sectionsRefs[i]}
           isScrolled={scrolledSections[i]}
           index={i}
@@ -53,7 +63,7 @@ const CategoriesListing = ({ emoji = emojiList }) => {
 };
 
 CategoriesListing.defaultProps = {
-  categories: []
+  categories: [],
 };
 
 export default CategoriesListing;
