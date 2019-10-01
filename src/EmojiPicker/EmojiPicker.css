@@ -1,6 +1,7 @@
 .emoji-picker {
   font-family: "SF Pro Text";
-  max-width: 360px;
+  max-width: 352px;
+  min-height: 480px;
   position: relative;
   border-radius: 8px;
   overflow: hidden;

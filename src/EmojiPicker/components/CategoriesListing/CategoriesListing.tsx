@@ -15,19 +15,18 @@ const titlesMap = {
   flags: "Flags",
 };
 
-const useScrolledSections = (
+const useSetScrolledSections = (
   container: { current: HTMLDivElement },
-  items: { current: HTMLElement }[]
+  items: { current: HTMLElement }[],
+  setScrolledSections: (scrollSections: boolean[]) => void
 ) => {
-  const [scrolledSections, setScrolledSections] = useState<[] | boolean[]>([]);
-
   useEffect(() => {
     const { current } = container;
     const handleScroll = () => {
       const tops = items.map(x => x.current.offsetTop);
 
       const newScrolledSections = tops.map((top: number, i: number) =>
-        Boolean(container.current && container.current.scrollTop >= top)
+        Boolean(container.current && container.current.scrollTop > top)
       );
 
       setScrolledSections(newScrolledSections);
@@ -39,15 +38,19 @@ const useScrolledSections = (
       current.removeEventListener("scroll", handleScroll);
     };
   }, [items, container]);
-
-  return scrolledSections;
 };
 
 interface Props {
+  scrolledSections: boolean[];
+  setScrolledSections(scrolledSections: boolean[]): void;
   emoji?: EmojiMap;
 }
 
-const CategoriesListing = ({ emoji = emojiList }: Props) => {
+const CategoriesListing = ({
+  scrolledSections,
+  setScrolledSections,
+  emoji = emojiList,
+}: Props) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const categories = Object.entries(emoji);
@@ -55,7 +58,7 @@ const CategoriesListing = ({ emoji = emojiList }: Props) => {
   const refs = useRef(categories.map(() => createRef<HTMLElement>()));
   const sectionsRefs = refs.current;
 
-  const scrolledSections = useScrolledSections(ref, sectionsRefs);
+  useSetScrolledSections(ref, sectionsRefs, setScrolledSections);
 
   return (
     <div className="categories-listing" ref={ref}>

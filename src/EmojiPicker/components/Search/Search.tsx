@@ -16,25 +16,35 @@ const useInput = (initialState: string) => {
 
 interface SearchProps {
   className?: string;
+  scrolledSections: boolean[];
 }
 
-const Search = ({ className }: SearchProps) => {
+const Search = ({ className, scrolledSections }: SearchProps) => {
   const { value, setValue, reset } = useInput("");
+  const classes = classNames(
+    "search",
+    {
+      "search--hidden": scrolledSections.some(Boolean),
+    },
+    className
+  );
 
   return (
-    <div className={classNames("search", className)}>
-      <Svg.Search className="search__search-icon" />
-      <input
-        className="search__input"
-        placeholder="Search"
-        value={value}
-        onChange={setValue}
-      />
-      {Boolean(value) && (
-        <button className="search__close-btn" onClick={reset}>
-          <Svg.Close className="search__close-icon" />
-        </button>
-      )}
+    <div className={classes}>
+      <div className="search__content">
+        <Svg.Search className="search__search-icon" />
+        <input
+          className="search__input"
+          placeholder="Search"
+          value={value}
+          onChange={setValue}
+        />
+        {Boolean(value) && (
+          <button className="search__close-btn" onClick={reset}>
+            <Svg.Close className="search__close-icon" />
+          </button>
+        )}
+      </div>
     </div>
   );
 };

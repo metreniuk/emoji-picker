@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./EmojiPicker.css";
 
 import Header from "./components/Header";
@@ -6,18 +6,23 @@ import Search from "./components/Search";
 import CategoriesListing from "./components/CategoriesListing";
 import Footer from "./components/Footer";
 
-// TODO add emojilib https://github.com/muan/emojilib
-// TODO split emoji by categories https://emojipedia.org
+const EmojiPicker = () => {
+  const [scrolledSections, setScrolledSections] = useState<boolean[] | []>([]);
 
-const EmojiPicker = () => (
-  <div className="emoji-picker">
-    <Header />
-    <div className="emoji-picker__search-wrapper">
-      <Search />
+  return (
+    <div className="emoji-picker">
+      <Header />
+      <Search
+        className="emoji-picker__search"
+        scrolledSections={scrolledSections}
+      />
+      <CategoriesListing
+        scrolledSections={scrolledSections}
+        setScrolledSections={setScrolledSections}
+      />
+      <Footer className="emoji-picker__footer" />
     </div>
-    <CategoriesListing />
-    <Footer className="emoji-picker__footer" />
-  </div>
-);
+  );
+};
 
 export default EmojiPicker;
