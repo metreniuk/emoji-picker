@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState, createRef } from "react";
 
 import "./CategoriesListing.css";
 
-import emojiList from "../../../emoji-list";
+import emojiList, { EmojiMap } from "../../../emoji-list";
 import Section from "./components/Section";
 
 const titlesMap = {
@@ -43,7 +43,11 @@ const useScrolledSections = (
   return scrolledSections;
 };
 
-const CategoriesListing = ({ emoji = emojiList }) => {
+interface Props {
+  emoji?: EmojiMap;
+}
+
+const CategoriesListing = ({ emoji = emojiList }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const categories = Object.entries(emoji);
@@ -68,10 +72,6 @@ const CategoriesListing = ({ emoji = emojiList }) => {
       ))}
     </div>
   );
-};
-
-CategoriesListing.defaultProps = {
-  categories: [],
 };
 
 export default CategoriesListing;

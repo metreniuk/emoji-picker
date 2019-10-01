@@ -28,7 +28,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.{ts,tsx}",
-    "format": "prettier --write src/**/*.{ts,tsx,js,css}"
+    "format": "prettier --write src/**/*.{ts,tsx,css}"
   },
   "browserslist": [
     ">0.2%",

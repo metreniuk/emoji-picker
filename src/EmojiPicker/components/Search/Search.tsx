@@ -15,7 +15,7 @@ const useInput = (initialState: string) => {
 };
 
 interface SearchProps {
-  className: string;
+  className?: string;
 }
 
 const Search = ({ className }: SearchProps) => {
