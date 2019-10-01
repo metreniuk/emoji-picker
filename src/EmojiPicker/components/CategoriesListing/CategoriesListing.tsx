@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, createRef } from "react";
 
 import "./CategoriesListing.css";
 
@@ -21,9 +21,11 @@ const CategoriesListing = ({ emoji = emojiList }) => {
 
   const categories = Object.entries(emoji);
 
-  const sectionsRefs = categories.map(() => useRef<HTMLElement>(null));
+  const refs = useRef(categories.map(() => createRef<HTMLElement>()));
+  const sectionsRefs = refs.current;
 
   useEffect(() => {
+    const { current } = ref;
     const handleScroll = () => {
       const tops = sectionsRefs.map((x: any) => x.current.offsetTop);
 
@@ -34,16 +36,12 @@ const CategoriesListing = ({ emoji = emojiList }) => {
       setScrolledSections(newScrolledSections);
     };
 
-    if (ref.current) {
-      ref.current.addEventListener("scroll", handleScroll);
-    }
+    current.addEventListener("scroll", handleScroll);
 
     return () => {
-      if (ref.current) {
-        ref.current.removeEventListener("scroll", handleScroll);
-      }
+      current.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [sectionsRefs, ref]);
 
   return (
     <div className="categories-listing" ref={ref}>

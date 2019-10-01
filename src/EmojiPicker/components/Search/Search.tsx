@@ -10,7 +10,7 @@ const useInput = (initialState: string) => {
   return {
     value,
     setValue: (e: ChangeEvent<HTMLInputElement>) => setValue(e.target.value),
-    reset: () => setValue(initialState)
+    reset: () => setValue(initialState),
   };
 };
 

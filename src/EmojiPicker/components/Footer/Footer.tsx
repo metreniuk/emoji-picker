@@ -25,7 +25,7 @@ interface NavItemProps {
 const NavItem = ({ icon: Icon, category, isActive, onClick }: NavItemProps) => (
   <li
     className={classNames("footer__nav-item", {
-      "footer__nav-item--active": isActive
+      "footer__nav-item--active": isActive,
     })}
     onClick={() => onClick(category)}
   >
@@ -64,37 +64,37 @@ Footer.defaultProps = {
   categories: [
     {
       id: "recent",
-      icon: Svg.Recent
+      icon: Svg.Recent,
     },
     {
       id: "smile",
-      icon: Svg.Smile
+      icon: Svg.Smile,
     },
     {
       id: "animal",
-      icon: Svg.Animal
+      icon: Svg.Animal,
     },
     {
       id: "food",
-      icon: Svg.Food
+      icon: Svg.Food,
     },
     {
       id: "sport",
-      icon: Svg.Sport
+      icon: Svg.Sport,
     },
     {
       id: "transport",
-      icon: Svg.Transport
+      icon: Svg.Transport,
     },
     {
       id: "object",
-      icon: Svg.Objects
+      icon: Svg.Objects,
     },
     {
       id: "symbol",
-      icon: Svg.Symbols
-    }
-  ]
+      icon: Svg.Symbols,
+    },
+  ],
 };
 
 export default Footer;

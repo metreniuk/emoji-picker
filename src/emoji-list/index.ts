@@ -15,7 +15,7 @@ const categories = [
   "activity",
   "travel_and_places",
   "objects",
-  "flags"
+  "flags",
 ];
 
 const emojiShape: EmojiMap = Object.entries(emojilib).reduce(

@@ -15,38 +15,34 @@ interface Props {
   items?: CategoryItem[];
 }
 
-type Ref = HTMLElement;
-
 const defaultItems = new Array(10).fill(undefined);
 
 // TODO Fix not centered emoji
 // TODO The padding when scrollbar is enabled
-const Section = forwardRef<Ref, Props>(
-  ({ className, title, index, isScrolled, items = defaultItems }, ref) => {
-    return (
-      <section
-        className={classNames(
-          "section",
-          {
-            "section--scrolled": isScrolled
-          },
-          className
-        )}
-        ref={ref}
-      >
-        <h2 className="section__title" data-index={index}>
-          {title}
-        </h2>
-        <div className="section__icons-list">
-          {items.map(({ id, value }) => (
-            <div className="section__icon-wrapper" key={id}>
-              {value}
-            </div>
-          ))}
-        </div>
-      </section>
-    );
-  }
+const Section = forwardRef<HTMLElement, Props>(
+  ({ className, title, index, isScrolled, items = defaultItems }, ref) => (
+    <section
+      className={classNames(
+        "section",
+        {
+          "section--scrolled": isScrolled,
+        },
+        className
+      )}
+      ref={ref}
+    >
+      <h2 className="section__title" data-index={index}>
+        {title}
+      </h2>
+      <div className="section__icons-list">
+        {items.map(({ id, value }) => (
+          <div className="section__icon-wrapper" key={id}>
+            {value}
+          </div>
+        ))}
+      </div>
+    </section>
+  )
 );
 
 export default Section;

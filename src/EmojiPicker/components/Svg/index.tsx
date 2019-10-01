@@ -273,5 +273,5 @@ export {
   Sport,
   Transport,
   Objects,
-  Symbols
+  Symbols,
 };
