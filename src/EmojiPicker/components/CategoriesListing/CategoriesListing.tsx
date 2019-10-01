@@ -15,22 +15,19 @@ const titlesMap = {
   flags: "Flags",
 };
 
-const CategoriesListing = ({ emoji = emojiList }) => {
+const useScrolledSections = (
+  container: { current: HTMLDivElement },
+  items: { current: HTMLElement }[]
+) => {
   const [scrolledSections, setScrolledSections] = useState<[] | boolean[]>([]);
-  const ref = useRef<HTMLDivElement>(null);
-
-  const categories = Object.entries(emoji);
-
-  const refs = useRef(categories.map(() => createRef<HTMLElement>()));
-  const sectionsRefs = refs.current;
 
   useEffect(() => {
-    const { current } = ref;
+    const { current } = container;
     const handleScroll = () => {
-      const tops = sectionsRefs.map((x: any) => x.current.offsetTop);
+      const tops = items.map(x => x.current.offsetTop);
 
       const newScrolledSections = tops.map((top: number, i: number) =>
-        Boolean(ref.current && ref.current.scrollTop >= top)
+        Boolean(container.current && container.current.scrollTop >= top)
       );
 
       setScrolledSections(newScrolledSections);
@@ -41,7 +38,20 @@ const CategoriesListing = ({ emoji = emojiList }) => {
     return () => {
       current.removeEventListener("scroll", handleScroll);
     };
-  }, [sectionsRefs, ref]);
+  }, [items, container]);
+
+  return scrolledSections;
+};
+
+const CategoriesListing = ({ emoji = emojiList }) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const categories = Object.entries(emoji);
+
+  const refs = useRef(categories.map(() => createRef<HTMLElement>()));
+  const sectionsRefs = refs.current;
+
+  const scrolledSections = useScrolledSections(ref, sectionsRefs);
 
   return (
     <div className="categories-listing" ref={ref}>

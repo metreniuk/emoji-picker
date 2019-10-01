@@ -8,7 +8,6 @@
       "modules": true
     }
   },
-  "extends": ["prettier", "prettier/@typescript-eslint"],
   "plugins": ["react-hooks"],
   "rules": {
     "react-hooks/rules-of-hooks": "error",
