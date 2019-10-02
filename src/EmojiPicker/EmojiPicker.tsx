@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./EmojiPicker.css";
 
 import Header from "./components/Header";
@@ -7,13 +7,47 @@ import CategoriesListing from "./components/CategoriesListing";
 import Footer from "./components/Footer";
 import { UserCategory, ScrolledSection, EmojiEntry } from "./types";
 import emojiByCategory, { EmojiItem, emojiMap } from "../emoji-list";
+import * as Svg from "./components/Svg";
 
-// TODO change active category depending on scroll
+const categories: { id: UserCategory; icon: Svg.IconType }[] = [
+  {
+    id: "recent",
+    icon: Svg.Recent,
+  },
+  {
+    id: "people",
+    icon: Svg.Smile,
+  },
+  {
+    id: "animals_and_nature",
+    icon: Svg.Animal,
+  },
+  {
+    id: "food_and_drink",
+    icon: Svg.Food,
+  },
+  {
+    id: "activity",
+    icon: Svg.Sport,
+  },
+  {
+    id: "travel_and_places",
+    icon: Svg.Transport,
+  },
+  {
+    id: "objects",
+    icon: Svg.Objects,
+  },
+  {
+    id: "flags",
+    icon: Svg.Flags,
+  },
+];
 
 const EmojiPicker = () => {
-  const [scrolledSections, setScrolledSections] = useState<
-    ScrolledSection[] | []
-  >([]);
+  const [scrolledSections, setScrolledSections] = useState<ScrolledSection[]>(
+    []
+  );
 
   const [usageCountMap, setUsageCountMap] = useState<{
     [category: string]: number;
@@ -45,6 +79,17 @@ const EmojiPicker = () => {
     }
   };
 
+  useEffect(() => {
+    const isScrolledFlags = scrolledSections.map(x => x.isScrolled);
+    const lastScrolledIndex = isScrolledFlags.findIndex(
+      (isScrolled, i) => isScrolled && !isScrolledFlags[i + 1]
+    );
+
+    if (lastScrolledIndex !== -1) {
+      setActiveCategory(categories[lastScrolledIndex].id);
+    }
+  }, [scrolledSections]);
+
   return (
     <div className="emoji-picker">
       <Header />
@@ -60,6 +105,7 @@ const EmojiPicker = () => {
       />
       <Footer
         className="emoji-picker__footer"
+        categories={categories}
         activeCategory={activeCategory}
         onCategoryClick={handleCategoryClick}
       />

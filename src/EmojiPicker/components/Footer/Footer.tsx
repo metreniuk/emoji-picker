@@ -1,24 +1,24 @@
-import React from "react";
+import React, { MouseEvent } from "react";
 import classNames from "classnames";
 
 import "./Footer.css";
 
 import { UserCategory } from "../../types";
-import * as Svg from "../Svg";
+import { IconType } from "../Svg";
 
 interface NavItemProps {
   category: UserCategory;
-  icon: Svg.IconType;
+  icon: IconType;
   isActive: boolean;
-  onClick(category: UserCategory): any;
+  onClick(e: MouseEvent): any;
 }
 
-const NavItem = ({ icon: Icon, category, isActive, onClick }: NavItemProps) => (
+const NavItem = ({ icon: Icon, isActive, onClick }: NavItemProps) => (
   <li
     className={classNames("footer__nav-item", {
       "footer__nav-item--active": isActive,
     })}
-    onClick={() => onClick(category)}
+    onClick={onClick}
   >
     <Icon className="footer__nav-icon" isFilled={isActive} />
   </li>
@@ -26,7 +26,7 @@ const NavItem = ({ icon: Icon, category, isActive, onClick }: NavItemProps) => (
 
 interface FooterProps {
   className: string;
-  categories: { id: UserCategory; icon: Svg.IconType }[];
+  categories: { id: UserCategory; icon: IconType }[];
   activeCategory: UserCategory;
   onCategoryClick(category: UserCategory): void;
 }
@@ -47,50 +47,15 @@ const Footer = ({
               icon={icon}
               category={id}
               isActive={id === activeCategory}
-              onClick={onCategoryClick}
+              onClick={() => {
+                onCategoryClick(id);
+              }}
             />
           ))}
         </ul>
       </nav>
     </footer>
   );
-};
-
-Footer.defaultProps = {
-  categories: [
-    {
-      id: "recent",
-      icon: Svg.Recent,
-    },
-    {
-      id: "people",
-      icon: Svg.Smile,
-    },
-    {
-      id: "animals_and_nature",
-      icon: Svg.Animal,
-    },
-    {
-      id: "food_and_drink",
-      icon: Svg.Food,
-    },
-    {
-      id: "activity",
-      icon: Svg.Sport,
-    },
-    {
-      id: "travel_and_places",
-      icon: Svg.Transport,
-    },
-    {
-      id: "objects",
-      icon: Svg.Objects,
-    },
-    {
-      id: "flags",
-      icon: Svg.Flags,
-    },
-  ],
 };
 
 export default Footer;
