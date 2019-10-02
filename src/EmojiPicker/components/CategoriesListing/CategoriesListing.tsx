@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState, createRef } from "react";
+import React, { useEffect, useRef, createRef } from "react";
+import classNames from "classnames";
 
 import "./CategoriesListing.css";
 
@@ -73,7 +74,9 @@ const CategoriesListing = ({
       {emoji.map(([id, items], i) => (
         <Section
           key={id}
-          className="categories-listing__section"
+          className={classNames("categories-listing__section", {
+            "categories-listing__section--empty": items.length === 0,
+          })}
           title={titlesMap[id]}
           ref={sectionsRefs[i]}
           isScrolled={isScrolledValues[i]}

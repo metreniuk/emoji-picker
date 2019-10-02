@@ -4,3 +4,7 @@
   padding: 0 16px;
   position: relative;
 }
+
+.categories-listing__section--empty {
+  display: none;
+}
