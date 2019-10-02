@@ -4,8 +4,10 @@ import "./CategoriesListing.css";
 
 import { ScrolledSection, EmojiEntry } from "../../types";
 import Section from "./components/Section";
+import { EmojiItem } from "../../../emoji-list";
 
 const titlesMap = {
+  recent: "Recent",
   people: "Smileys & People",
   animals_and_nature: "Animals & Nature",
   food_and_drink: "Food & Drink",
@@ -49,12 +51,14 @@ interface Props {
   scrolledSections: ScrolledSection[];
   setScrolledSections(scrolledSections: ScrolledSection[]): void;
   emoji: EmojiEntry[];
+  onItemClick(item: EmojiItem): void;
 }
 
 const CategoriesListing = ({
   scrolledSections,
   setScrolledSections,
   emoji,
+  onItemClick,
 }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -75,6 +79,7 @@ const CategoriesListing = ({
           isScrolled={isScrolledValues[i]}
           index={i}
           items={items}
+          onItemClick={onItemClick}
         />
       ))}
     </div>

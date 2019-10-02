@@ -1,6 +1,9 @@
 import React, { forwardRef } from "react";
 import classNames from "classnames";
+
 import "./Section.css";
+
+import { EmojiItem } from "../../../../../emoji-list";
 
 interface CategoryItem {
   id: string;
@@ -12,6 +15,7 @@ interface Props {
   title: string;
   index: number;
   isScrolled: boolean;
+  onItemClick(item: EmojiItem): void;
   items?: CategoryItem[];
 }
 
@@ -20,7 +24,10 @@ const defaultItems = new Array(10).fill(undefined);
 // TODO Fix not centered emoji
 // TODO The padding when scrollbar is enabled
 const Section = forwardRef<HTMLElement, Props>(
-  ({ className, title, index, isScrolled, items = defaultItems }, ref) => (
+  (
+    { className, title, index, isScrolled, onItemClick, items = defaultItems },
+    ref
+  ) => (
     <section
       className={classNames(
         "section",
@@ -36,7 +43,13 @@ const Section = forwardRef<HTMLElement, Props>(
       </h2>
       <div className="section__icons-list">
         {items.map(({ id, value }) => (
-          <div className="section__icon-wrapper" key={id}>
+          <div
+            className="section__icon-wrapper"
+            key={id}
+            onClick={() => {
+              onItemClick({ id, value });
+            }}
+          >
             {value}
           </div>
         ))}

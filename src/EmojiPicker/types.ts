@@ -13,8 +13,12 @@ export type UserCategory = "recent" | Category;
 
 export type EmojiEntry = [UserCategory, EmojiItem[]];
 
-export type EmojiMap = {
+export type EmojiByCategory = {
   [category in Category]: EmojiItem[];
+};
+
+export type EmojiMap = {
+  [category in Category]: string;
 };
 
 export interface ScrolledSection {

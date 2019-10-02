@@ -6,18 +6,37 @@ import Search from "./components/Search";
 import CategoriesListing from "./components/CategoriesListing";
 import Footer from "./components/Footer";
 import { UserCategory, ScrolledSection, EmojiEntry } from "./types";
-import emojiShape from "../emoji-list";
+import emojiByCategory, { EmojiItem, emojiMap } from "../emoji-list";
 
-const emojiEntries = Object.entries(emojiShape) as EmojiEntry[];
-const emoji: EmojiEntry[] = [["recent", []], ...emojiEntries];
+// TODO change active category depending on scroll
 
 const EmojiPicker = () => {
   const [scrolledSections, setScrolledSections] = useState<
     ScrolledSection[] | []
   >([]);
+
+  const [usageCountMap, setUsageCountMap] = useState<{
+    [category: string]: number;
+  }>({});
+  const addRecent = emojiItem => {
+    const usageCount = usageCountMap[emojiItem.id];
+    if (usageCount) {
+      setUsageCountMap({ ...usageCountMap, [emojiItem.id]: usageCount + 1 });
+    } else {
+      setUsageCountMap({ ...usageCountMap, [emojiItem.id]: 1 });
+    }
+  };
+
+  const recentEmoji: EmojiItem[] = Object.entries(usageCountMap)
+    .sort(([_, x], [__, y]) => y - x)
+    .map(([id]) => id)
+    .map(id => ({ id, value: emojiMap[id] }));
+
   const [activeCategory, setActiveCategory] = useState<UserCategory>("recent");
 
-  const handleCategoryClick = category => {
+  const emojiEntries = Object.entries(emojiByCategory) as EmojiEntry[];
+  const emoji: EmojiEntry[] = [["recent", recentEmoji], ...emojiEntries];
+  const handleCategoryClick = (category: UserCategory) => {
     setActiveCategory(category);
     const sectionIndex = emoji.findIndex(([id]) => category === id);
     const scrolledSection = scrolledSections[sectionIndex];
@@ -37,6 +56,7 @@ const EmojiPicker = () => {
         scrolledSections={scrolledSections}
         setScrolledSections={setScrolledSections}
         emoji={emoji}
+        onItemClick={addRecent}
       />
       <Footer
         className="emoji-picker__footer"

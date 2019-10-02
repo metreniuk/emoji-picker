@@ -1,7 +1,6 @@
-import { EmojiMap } from "../EmojiPicker/types";
+import { EmojiByCategory, EmojiMap } from "../EmojiPicker/types";
 
 const emojilib: EmojiLib = require("emojilib").lib;
-const fs = require("fs");
 
 interface EmojiLib {
   [emojiId: string]: {
@@ -20,7 +19,7 @@ export const categories = [
   "flags",
 ];
 
-const emojiShape: EmojiMap = Object.entries(emojilib).reduce(
+const emojiByCategory: EmojiByCategory = Object.entries(emojilib).reduce(
   (categories, [id, meta]) => {
     const { category, char } = meta;
 
@@ -41,9 +40,16 @@ const emojiShape: EmojiMap = Object.entries(emojilib).reduce(
   }
 );
 
+const emojiMap = Object.entries(emojilib).reduce(
+  (acc, [id, { char }]) => ({ ...acc, [id]: char }),
+  {} as EmojiMap
+);
+
 export interface EmojiItem {
   id: string;
   value: string;
 }
 
-export default emojiShape;
+export { emojiMap };
+
+export default emojiByCategory;
