@@ -8,7 +8,7 @@ import Section from "./components/Section";
 import { EmojiItem } from "../../../emoji-list";
 
 const titlesMap = {
-  recent: "Recent",
+  recent: "Frequently used",
   people: "Smileys & People",
   animals_and_nature: "Animals & Nature",
   food_and_drink: "Food & Drink",
