@@ -4,11 +4,11 @@ import classNames from "classnames";
 import "./Footer.css";
 
 import { UserCategory } from "../../types";
-import { IconType } from "../Svg";
+import * as Svg from "../Svg";
 
 interface NavItemProps {
   category: UserCategory;
-  icon: IconType;
+  icon: Svg.IconType;
   isActive: boolean;
   onClick(e: MouseEvent): any;
 }
@@ -26,10 +26,21 @@ const NavItem = ({ icon: Icon, isActive, onClick }: NavItemProps) => (
 
 interface FooterProps {
   className: string;
-  categories: { id: UserCategory; icon: IconType }[];
+  categories: UserCategory[];
   activeCategory: UserCategory;
   onCategoryClick(category: UserCategory): void;
 }
+
+const iconByCategory: { [category in UserCategory]: Svg.IconType } = {
+  recent: Svg.Recent,
+  people: Svg.Smile,
+  animals_and_nature: Svg.Animal,
+  food_and_drink: Svg.Food,
+  activity: Svg.Sport,
+  travel_and_places: Svg.Transport,
+  objects: Svg.Objects,
+  flags: Svg.Flags,
+};
 
 const Footer = ({
   className,
@@ -41,14 +52,14 @@ const Footer = ({
     <footer className={classNames("footer", className)}>
       <nav className="footer__nav">
         <ul className="footer__nav-list">
-          {categories.map(({ icon, id }) => (
+          {categories.map(category => (
             <NavItem
-              key={id}
-              icon={icon}
-              category={id}
-              isActive={id === activeCategory}
+              key={category}
+              icon={iconByCategory[category]}
+              category={category}
+              isActive={category === activeCategory}
               onClick={() => {
-                onCategoryClick(id);
+                onCategoryClick(category);
               }}
             />
           ))}

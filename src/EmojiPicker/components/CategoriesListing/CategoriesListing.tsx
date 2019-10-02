@@ -5,7 +5,7 @@ import "./CategoriesListing.css";
 
 import { ScrolledSection, EmojiEntry } from "../../types";
 import Section from "./components/Section";
-import { EmojiItem } from "../../../emoji-list";
+import { EmojiItem } from "../../types";
 
 const titlesMap = {
   recent: "Frequently used",

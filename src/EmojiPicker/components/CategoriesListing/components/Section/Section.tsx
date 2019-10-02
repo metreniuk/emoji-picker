@@ -3,7 +3,7 @@ import classNames from "classnames";
 
 import "./Section.css";
 
-import { EmojiItem } from "../../../../../emoji-list";
+import { EmojiItem } from "../../../../types";
 
 interface CategoryItem {
   id: string;

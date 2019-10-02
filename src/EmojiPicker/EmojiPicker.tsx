@@ -5,43 +5,18 @@ import Header from "./components/Header";
 import Search from "./components/Search";
 import CategoriesListing from "./components/CategoriesListing";
 import Footer from "./components/Footer";
-import { UserCategory, ScrolledSection, EmojiEntry } from "./types";
-import emojiByCategory, { EmojiItem, emojiMap } from "../emoji-list";
-import * as Svg from "./components/Svg";
+import { UserCategory, ScrolledSection, EmojiEntry, EmojiItem } from "./types";
+import { emojiByCategory, emojiMap } from "./emoji-list";
 
-const categories: { id: UserCategory; icon: Svg.IconType }[] = [
-  {
-    id: "recent",
-    icon: Svg.Recent,
-  },
-  {
-    id: "people",
-    icon: Svg.Smile,
-  },
-  {
-    id: "animals_and_nature",
-    icon: Svg.Animal,
-  },
-  {
-    id: "food_and_drink",
-    icon: Svg.Food,
-  },
-  {
-    id: "activity",
-    icon: Svg.Sport,
-  },
-  {
-    id: "travel_and_places",
-    icon: Svg.Transport,
-  },
-  {
-    id: "objects",
-    icon: Svg.Objects,
-  },
-  {
-    id: "flags",
-    icon: Svg.Flags,
-  },
+const categories: UserCategory[] = [
+  "recent",
+  "people",
+  "animals_and_nature",
+  "food_and_drink",
+  "activity",
+  "travel_and_places",
+  "objects",
+  "flags",
 ];
 
 const EmojiPicker = () => {
@@ -86,7 +61,7 @@ const EmojiPicker = () => {
     );
 
     if (lastScrolledIndex !== -1) {
-      setActiveCategory(categories[lastScrolledIndex].id);
+      setActiveCategory(categories[lastScrolledIndex]);
     }
   }, [scrolledSections]);
 

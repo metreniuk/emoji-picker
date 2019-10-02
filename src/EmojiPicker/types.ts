@@ -1,5 +1,3 @@
-import { EmojiItem } from "../emoji-list";
-
 export type Category =
   | "people"
   | "animals_and_nature"
@@ -10,6 +8,11 @@ export type Category =
   | "flags";
 
 export type UserCategory = "recent" | Category;
+
+export interface EmojiItem {
+  id: string;
+  value: string;
+}
 
 export type EmojiEntry = [UserCategory, EmojiItem[]];
 
