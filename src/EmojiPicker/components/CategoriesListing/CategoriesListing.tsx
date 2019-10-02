@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState, createRef } from "react";
 
 import "./CategoriesListing.css";
 
-import emojiList, { EmojiMap } from "../../../emoji-list";
+import { ScrolledSection, EmojiEntry } from "../../types";
 import Section from "./components/Section";
 
 const titlesMap = {
@@ -18,19 +18,24 @@ const titlesMap = {
 const useSetScrolledSections = (
   container: { current: HTMLDivElement },
   items: { current: HTMLElement }[],
-  setScrolledSections: (scrollSections: boolean[]) => void
+  setScrolledSections
 ) => {
   useEffect(() => {
     const { current } = container;
     const handleScroll = () => {
       const tops = items.map(x => x.current.offsetTop);
 
-      const newScrolledSections = tops.map((top: number, i: number) =>
-        Boolean(container.current && container.current.scrollTop > top)
-      );
+      const newScrolledSections = tops.map((top: number, i: number) => ({
+        section: items[i],
+        isScrolled: Boolean(
+          container.current && container.current.scrollTop > top
+        ),
+      }));
 
       setScrolledSections(newScrolledSections);
     };
+
+    handleScroll();
 
     current.addEventListener("scroll", handleScroll);
 
@@ -41,34 +46,33 @@ const useSetScrolledSections = (
 };
 
 interface Props {
-  scrolledSections: boolean[];
-  setScrolledSections(scrolledSections: boolean[]): void;
-  emoji?: EmojiMap;
+  scrolledSections: ScrolledSection[];
+  setScrolledSections(scrolledSections: ScrolledSection[]): void;
+  emoji: EmojiEntry[];
 }
 
 const CategoriesListing = ({
   scrolledSections,
   setScrolledSections,
-  emoji = emojiList,
+  emoji,
 }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
 
-  const categories = Object.entries(emoji);
-
-  const refs = useRef(categories.map(() => createRef<HTMLElement>()));
+  const refs = useRef(emoji.map(() => createRef<HTMLElement>()));
   const sectionsRefs = refs.current;
 
   useSetScrolledSections(ref, sectionsRefs, setScrolledSections);
+  const isScrolledValues = scrolledSections.map(x => x.isScrolled);
 
   return (
     <div className="categories-listing" ref={ref}>
-      {categories.map(([id, items], i) => (
+      {emoji.map(([id, items], i) => (
         <Section
           key={id}
           className="categories-listing__section"
           title={titlesMap[id]}
           ref={sectionsRefs[i]}
-          isScrolled={scrolledSections[i]}
+          isScrolled={isScrolledValues[i]}
           index={i}
           items={items}
         />

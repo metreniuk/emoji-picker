@@ -3,6 +3,7 @@ import classNames from "classnames";
 import "./Search.css";
 
 import * as Svg from "../Svg";
+import { ScrolledSection } from "../../types";
 
 const useInput = (initialState: string) => {
   const [value, setValue] = useState(initialState);
@@ -16,7 +17,7 @@ const useInput = (initialState: string) => {
 
 interface SearchProps {
   className?: string;
-  scrolledSections: boolean[];
+  scrolledSections: ScrolledSection[];
 }
 
 const Search = ({ className, scrolledSections }: SearchProps) => {
@@ -24,7 +25,7 @@ const Search = ({ className, scrolledSections }: SearchProps) => {
   const classes = classNames(
     "search",
     {
-      "search--hidden": scrolledSections.some(Boolean),
+      "search--hidden": scrolledSections.some(x => x.isScrolled),
     },
     className
   );

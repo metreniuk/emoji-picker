@@ -232,7 +232,7 @@ const Objects = ({ className, isFilled }: IconProps) => (
   </svg>
 );
 
-const Symbols = ({ className, isFilled }: IconProps) => (
+const Flags = ({ className, isFilled }: IconProps) => (
   <svg
     className={classNames(className)}
     width="24"
@@ -273,5 +273,5 @@ export {
   Sport,
   Transport,
   Objects,
-  Symbols,
+  Flags,
 };

@@ -1,25 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import classNames from "classnames";
 
 import "./Footer.css";
 
+import { UserCategory } from "../../types";
 import * as Svg from "../Svg";
 
-type Category =
-  | "recent"
-  | "smile"
-  | "animal"
-  | "food"
-  | "sport"
-  | "transport"
-  | "object"
-  | "symbol";
-
 interface NavItemProps {
-  category: Category;
+  category: UserCategory;
   icon: Svg.IconType;
   isActive: boolean;
-  onClick(category: Category): any;
+  onClick(category: UserCategory): any;
 }
 
 const NavItem = ({ icon: Icon, category, isActive, onClick }: NavItemProps) => (
@@ -35,12 +26,17 @@ const NavItem = ({ icon: Icon, category, isActive, onClick }: NavItemProps) => (
 
 interface FooterProps {
   className: string;
-  categories: { id: Category; icon: Svg.IconType }[];
+  categories: { id: UserCategory; icon: Svg.IconType }[];
+  activeCategory: UserCategory;
+  onCategoryClick(category: UserCategory): void;
 }
 
-const Footer = ({ className, categories }: FooterProps) => {
-  const [activeCategory, setActiveCategory] = useState("recent");
-
+const Footer = ({
+  className,
+  categories,
+  activeCategory,
+  onCategoryClick,
+}: FooterProps) => {
   return (
     <footer className={classNames("footer", className)}>
       <nav className="footer__nav">
@@ -51,7 +47,7 @@ const Footer = ({ className, categories }: FooterProps) => {
               icon={icon}
               category={id}
               isActive={id === activeCategory}
-              onClick={setActiveCategory}
+              onClick={onCategoryClick}
             />
           ))}
         </ul>
@@ -67,32 +63,32 @@ Footer.defaultProps = {
       icon: Svg.Recent,
     },
     {
-      id: "smile",
+      id: "people",
       icon: Svg.Smile,
     },
     {
-      id: "animal",
+      id: "animals_and_nature",
       icon: Svg.Animal,
     },
     {
-      id: "food",
+      id: "food_and_drink",
       icon: Svg.Food,
     },
     {
-      id: "sport",
+      id: "activity",
       icon: Svg.Sport,
     },
     {
-      id: "transport",
+      id: "travel_and_places",
       icon: Svg.Transport,
     },
     {
-      id: "object",
+      id: "objects",
       icon: Svg.Objects,
     },
     {
-      id: "symbol",
-      icon: Svg.Symbols,
+      id: "flags",
+      icon: Svg.Flags,
     },
   ],
 };
