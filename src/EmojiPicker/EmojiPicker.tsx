@@ -46,7 +46,6 @@ const EmojiPicker = () => {
   const emojiEntries = Object.entries(emojiByCategory) as EmojiEntry[];
   const emoji: EmojiEntry[] = [["recent", recentEmoji], ...emojiEntries];
   const handleCategoryClick = (category: UserCategory) => {
-    setActiveCategory(category);
     const sectionIndex = emoji.findIndex(([id]) => category === id);
     const scrolledSection = scrolledSections[sectionIndex];
     if (scrolledSection) {
@@ -59,19 +58,24 @@ const EmojiPicker = () => {
     const lastScrolledIndex = isScrolledFlags.findIndex(
       (isScrolled, i) => isScrolled && !isScrolledFlags[i + 1]
     );
+    const lastCategory = categories[lastScrolledIndex];
 
-    if (lastScrolledIndex !== -1) {
-      setActiveCategory(categories[lastScrolledIndex]);
+    if (!lastCategory) {
+      return;
     }
+
+    setActiveCategory(lastCategory);
   }, [scrolledSections]);
+
+  const currentScrolled = scrolledSections.find(x => x.isScrolled);
+  const shouldHide =
+    currentScrolled &&
+    currentScrolled.section.current.parentElement.scrollTop > 20;
 
   return (
     <div className="emoji-picker">
       <Header />
-      <Search
-        className="emoji-picker__search"
-        scrolledSections={scrolledSections}
-      />
+      {!shouldHide && <Search className="emoji-picker__search" />}
       <CategoriesListing
         scrolledSections={scrolledSections}
         setScrolledSections={setScrolledSections}

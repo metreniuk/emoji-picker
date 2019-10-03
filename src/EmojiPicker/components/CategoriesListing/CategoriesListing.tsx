@@ -31,7 +31,7 @@ const useSetScrolledSections = (
       const newScrolledSections = tops.map((top: number, i: number) => ({
         section: items[i],
         isScrolled: Boolean(
-          container.current && container.current.scrollTop > top
+          container.current && container.current.scrollTop > top - 10
         ),
       }));
 

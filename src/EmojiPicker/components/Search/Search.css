@@ -2,10 +2,6 @@
   padding: 0 16px;
 }
 
-.search--hidden {
-  display: none;
-}
-
 .search__content {
   width: 100%;
   height: 40px;
