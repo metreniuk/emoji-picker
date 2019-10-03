@@ -27,9 +27,7 @@ const categories: UserCategory[] = [
 const emojiEntries = Object.entries(emojiByCategory) as EmojiEntry[];
 
 const EmojiPicker = () => {
-  const [activeCategory, setActiveCategory] = useState<UserCategory>(
-    categories[0]
-  );
+  const [activeCategory, setActiveCategory] = useState<UserCategory>("people");
   const [scrolledSections, setScrolledSections] = useState<ScrolledSection[]>(
     []
   );
