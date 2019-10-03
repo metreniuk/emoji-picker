@@ -5,7 +5,13 @@ import Header from "./components/Header";
 import Search from "./components/Search";
 import CategoriesListing from "./components/CategoriesListing";
 import Footer from "./components/Footer";
-import { UserCategory, ScrolledSection, EmojiEntry, EmojiItem } from "./types";
+import {
+  UserCategory,
+  ScrolledSection,
+  EmojiEntry,
+  EmojiItem,
+  UsageCountMap,
+} from "./types";
 import { emojiByCategory, emojiMap } from "./emoji-list";
 
 const categories: UserCategory[] = [
@@ -18,16 +24,50 @@ const categories: UserCategory[] = [
   "objects",
   "flags",
 ];
+const emojiEntries = Object.entries(emojiByCategory) as EmojiEntry[];
 
 const EmojiPicker = () => {
+  const [activeCategory, setActiveCategory] = useState<UserCategory>(
+    categories[0]
+  );
   const [scrolledSections, setScrolledSections] = useState<ScrolledSection[]>(
     []
   );
+  const { usageCountMap, setEmojiCount } = useUsageCountMap();
 
-  const [usageCountMap, setUsageCountMap] = useState<{
-    [category: string]: number;
-  }>({});
-  const addRecent = emojiItem => {
+  const allEmojiEntries: EmojiEntry[] = [
+    ["recent", getRecentEmoji(usageCountMap)],
+    ...emojiEntries,
+  ];
+
+  useActiveCategoryFromScroll(scrolledSections, setActiveCategory);
+
+  const isSearchVisible = !isSearchHidden(scrolledSections);
+
+  return (
+    <div className="emoji-picker">
+      <Header />
+      {isSearchVisible && <Search className="emoji-picker__search" />}
+      <CategoriesListing
+        scrolledSections={scrolledSections}
+        setScrolledSections={setScrolledSections}
+        emoji={allEmojiEntries}
+        onItemClick={setEmojiCount}
+      />
+      <Footer
+        className="emoji-picker__footer"
+        categories={categories}
+        activeCategory={activeCategory}
+        onCategoryClick={scrollToCategory(allEmojiEntries, scrolledSections)}
+      />
+    </div>
+  );
+};
+
+function useUsageCountMap() {
+  const [usageCountMap, setUsageCountMap] = useState<UsageCountMap>({});
+
+  const setEmojiCount = (emojiItem: EmojiItem) => {
     const usageCount = usageCountMap[emojiItem.id];
     if (usageCount) {
       setUsageCountMap({ ...usageCountMap, [emojiItem.id]: usageCount + 1 });
@@ -36,23 +76,20 @@ const EmojiPicker = () => {
     }
   };
 
-  const recentEmoji: EmojiItem[] = Object.entries(usageCountMap)
+  return { usageCountMap, setEmojiCount };
+}
+
+function getRecentEmoji(usageCountMap: UsageCountMap): EmojiItem[] {
+  return Object.entries(usageCountMap)
     .sort(([_, x], [__, y]) => y - x)
     .map(([id]) => id)
     .map(id => ({ id, value: emojiMap[id] }));
+}
 
-  const [activeCategory, setActiveCategory] = useState<UserCategory>("recent");
-
-  const emojiEntries = Object.entries(emojiByCategory) as EmojiEntry[];
-  const emoji: EmojiEntry[] = [["recent", recentEmoji], ...emojiEntries];
-  const handleCategoryClick = (category: UserCategory) => {
-    const sectionIndex = emoji.findIndex(([id]) => category === id);
-    const scrolledSection = scrolledSections[sectionIndex];
-    if (scrolledSection) {
-      scrolledSection.section.current.scrollIntoView();
-    }
-  };
-
+function useActiveCategoryFromScroll(
+  scrolledSections: ScrolledSection[],
+  setActiveCategory: (category: UserCategory) => void
+) {
   useEffect(() => {
     const isScrolledFlags = scrolledSections.map(x => x.isScrolled);
     const lastScrolledIndex = isScrolledFlags.findIndex(
@@ -65,31 +102,29 @@ const EmojiPicker = () => {
     }
 
     setActiveCategory(lastCategory);
-  }, [scrolledSections]);
+  }, [scrolledSections, setActiveCategory]);
+}
 
+function isSearchHidden(scrolledSections: ScrolledSection[]) {
   const currentScrolled = scrolledSections.find(x => x.isScrolled);
-  const shouldHide =
-    currentScrolled &&
-    currentScrolled.section.current.parentElement.scrollTop > 20;
 
   return (
-    <div className="emoji-picker">
-      <Header />
-      {!shouldHide && <Search className="emoji-picker__search" />}
-      <CategoriesListing
-        scrolledSections={scrolledSections}
-        setScrolledSections={setScrolledSections}
-        emoji={emoji}
-        onItemClick={addRecent}
-      />
-      <Footer
-        className="emoji-picker__footer"
-        categories={categories}
-        activeCategory={activeCategory}
-        onCategoryClick={handleCategoryClick}
-      />
-    </div>
+    currentScrolled &&
+    currentScrolled.section.current.parentElement.scrollTop > 20
   );
-};
+}
+
+function scrollToCategory(
+  emojiEntries: EmojiEntry[],
+  scrolledSections: ScrolledSection[]
+) {
+  return (category: UserCategory) => {
+    const sectionIndex = emojiEntries.findIndex(([id]) => category === id);
+    const scrolledSection = scrolledSections[sectionIndex];
+    if (scrolledSection) {
+      scrolledSection.section.current.scrollIntoView();
+    }
+  };
+}
 
 export default EmojiPicker;

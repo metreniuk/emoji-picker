@@ -1,6 +1,6 @@
 .emoji-picker {
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  max-width: 352px;
+  width: 352px;
   min-height: 480px;
   position: relative;
   border-radius: 8px;

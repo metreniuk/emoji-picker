@@ -9,6 +9,10 @@ export type Category =
 
 export type UserCategory = "recent" | Category;
 
+export type UsageCountMap = {
+  [category: string]: number;
+};
+
 export interface EmojiItem {
   id: string;
   value: string;
