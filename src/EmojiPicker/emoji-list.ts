@@ -1,6 +1,5 @@
+import emojilib from "emojilib";
 import { EmojiByCategory, EmojiMap } from "../EmojiPicker/types";
-
-const emojilib: EmojiLib = require("emojilib").lib;
 
 interface EmojiLib {
   [emojiId: string]: {
@@ -9,7 +8,9 @@ interface EmojiLib {
   };
 }
 
-const emojiByCategory: EmojiByCategory = Object.entries(emojilib).reduce(
+const emojiLib: EmojiLib = emojilib.lib;
+
+const emojiByCategory: EmojiByCategory = Object.entries(emojiLib).reduce(
   (categories, [id, meta]) => {
     const { category, char } = meta;
 
@@ -30,7 +31,7 @@ const emojiByCategory: EmojiByCategory = Object.entries(emojilib).reduce(
   }
 );
 
-const emojiMap = Object.entries(emojilib).reduce(
+const emojiMap = Object.entries(emojiLib).reduce(
   (acc, [id, { char }]) => ({ ...acc, [id]: char }),
   {} as EmojiMap
 );
