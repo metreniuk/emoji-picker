@@ -14,30 +14,3 @@
   height: 100%;
   color: #248bf2;
 }
-
-.footer__nav-item {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  cursor: pointer;
-}
-
-.footer__nav-item::before {
-  content: "";
-  width: 100%;
-  background-color: transparent;
-  height: 2px;
-  position: absolute;
-  top: 0;
-  border-radius: 0 0 100px 100px;
-}
-
-.footer__nav-item--active::before {
-  background-color: currentColor;
-}
-
-.footer__nav-icon {
-  fill: currentColor;
-}

@@ -5,27 +5,10 @@ import "./Footer.css";
 
 import { UserCategory } from "../../types";
 import * as Svg from "../Svg";
+import NavItem from "./components/NavItem";
 
-interface NavItemProps {
-  category: UserCategory;
-  icon: Svg.IconType;
-  isActive: boolean;
-  onClick(e: MouseEvent): any;
-}
-
-const NavItem = ({ icon: Icon, isActive, onClick }: NavItemProps) => (
-  <li
-    className={classNames("footer__nav-item", {
-      "footer__nav-item--active": isActive,
-    })}
-    onClick={onClick}
-  >
-    <Icon className="footer__nav-icon" isFilled={isActive} />
-  </li>
-);
-
-interface FooterProps {
-  className: string;
+interface Props {
+  className?: string;
   categories: UserCategory[];
   activeCategory: UserCategory;
   onCategoryClick(category: UserCategory): void;
@@ -47,7 +30,7 @@ const Footer = ({
   categories,
   activeCategory,
   onCategoryClick,
-}: FooterProps) => {
+}: Props) => {
   return (
     <footer className={classNames("footer", className)}>
       <nav className="footer__nav">
