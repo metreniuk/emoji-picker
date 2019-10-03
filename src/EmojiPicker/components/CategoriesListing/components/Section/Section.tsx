@@ -14,8 +14,6 @@ interface Props {
   items?: EmojiItem[];
 }
 
-// TODO Fix not centered emoji
-// TODO The padding when scrollbar is enabled
 const Section = forwardRef<HTMLElement, Props>(
   ({ className, title, isScrolled, onItemClick, items }, ref) => (
     <section

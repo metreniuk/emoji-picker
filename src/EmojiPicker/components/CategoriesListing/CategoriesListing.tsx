@@ -3,9 +3,8 @@ import classNames from "classnames";
 
 import "./CategoriesListing.css";
 
-import { ScrolledSection, EmojiEntry } from "../../types";
+import { ScrolledSection, EmojiEntry, EmojiItem } from "../../types";
 import Section from "./components/Section";
-import { EmojiItem } from "../../types";
 
 const titlesMap = {
   recent: "Frequently used",
@@ -16,36 +15,6 @@ const titlesMap = {
   travel_and_places: "Travel & Places",
   objects: "Objects",
   flags: "Flags",
-};
-
-const useSetScrolledSections = (
-  container: { current: HTMLDivElement },
-  items: { current: HTMLElement }[],
-  setScrolledSections
-) => {
-  useEffect(() => {
-    const { current } = container;
-    const handleScroll = () => {
-      const tops = items.map(x => x.current.offsetTop);
-
-      const newScrolledSections = tops.map((top: number, i: number) => ({
-        section: items[i],
-        isScrolled: Boolean(
-          container.current && container.current.scrollTop > top - 10
-        ),
-      }));
-
-      setScrolledSections(newScrolledSections);
-    };
-
-    handleScroll();
-
-    current.addEventListener("scroll", handleScroll);
-
-    return () => {
-      current.removeEventListener("scroll", handleScroll);
-    };
-  }, [items, container]);
 };
 
 interface Props {
@@ -88,5 +57,35 @@ const CategoriesListing = ({
     </div>
   );
 };
+
+function useSetScrolledSections(
+  container: { current: HTMLDivElement },
+  items: { current: HTMLElement }[],
+  setScrolledSections: (scrolledSections: ScrolledSection[]) => void
+) {
+  useEffect(() => {
+    const { current } = container;
+    const handleScroll = () => {
+      const tops = items.map(x => x.current.offsetTop);
+
+      const newScrolledSections = tops.map((top: number, i: number) => ({
+        section: items[i],
+        isScrolled: Boolean(
+          container.current && container.current.scrollTop > top - 10
+        ),
+      }));
+
+      setScrolledSections(newScrolledSections);
+    };
+
+    handleScroll();
+
+    current.addEventListener("scroll", handleScroll);
+
+    return () => {
+      current.removeEventListener("scroll", handleScroll);
+    };
+  }, [items, container, setScrolledSections]);
+}
 
 export default CategoriesListing;
