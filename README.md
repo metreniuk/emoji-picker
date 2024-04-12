@@ -1,12 +1,12 @@
-# Тестовое задание Emoji Picker
+# Emoji Picker take-home assignment
 
 ## Условия
 
 - [x] React
 - [x] TS
-- [x] Протестировано в Google Chrome 77 / Safari 13 / Edge 78
-- [ ] Поиск (в процессе)
+- [x] Google Chrome 77 / Safari 13 / Edge 78
+- [ ] Search
 
-## Детали
-- Ширина Emoji Picker'a больше чем на макете. Это сделано для того чтобы контент вел себя одинаково когда включена опция *Settings/General/Show scroll bars/Always* на маке. Именно по этой причине справа отступ больше. Похожее поведение у Slack'а.
-- "Frequently used" категория формируется на основе частоты использования того или иного emoji.
+## Details
+- The width of the Emoji Picker is larger than in the layout. This is done so that the content behaves consistently when the option `Settings/General/Show scroll bars/Always` is enabled on a Mac. For this reason, there is a larger margin on the right. Slack has similar behavior.
+- The "Frequently used" category is formed based on the frequency of use of a particular emoji.
