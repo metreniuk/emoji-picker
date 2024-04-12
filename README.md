@@ -1,7 +1,5 @@
 # Emoji Picker take-home assignment
 
-## Условия
-
 - [x] React
 - [x] TS
 - [x] Google Chrome 77 / Safari 13 / Edge 78
